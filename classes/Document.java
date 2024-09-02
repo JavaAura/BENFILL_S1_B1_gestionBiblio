@@ -4,23 +4,24 @@ import java.time.LocalDateTime;
 
 abstract class Document {
 
-	protected LocalDateTime id;
+	protected long id;
 	protected String titre;
 	protected String auteur;
 	protected LocalDateTime datePublication;
 	protected int nombreDePages;
+	protected boolean borrowed = false;
 
 	protected abstract void emprunter();
 
 	protected abstract void retourner();
 
-	protected abstract void afficherDetails();
+	protected abstract String afficherDetails();
 
-	public LocalDateTime getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(LocalDateTime id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -40,6 +41,14 @@ abstract class Document {
 		this.auteur = auteur;
 	}
 
+	public boolean getBorrowed() {
+		return borrowed;
+	}
+
+	public void setBorrowed(Boolean borrowed) {
+		this.borrowed = borrowed;
+	}
+
 	public LocalDateTime getDatePublication() {
 		return datePublication;
 	}
@@ -55,4 +64,5 @@ abstract class Document {
 	public void setNombreDePages(int nombreDePages) {
 		this.nombreDePages = nombreDePages;
 	}
+
 }
