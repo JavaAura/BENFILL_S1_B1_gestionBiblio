@@ -6,18 +6,17 @@ class Magazine extends Document {
 
 	@Override
 	protected void emprunter() {
-		// TODO Auto-generated method stub
-
+		this.setBorrowed(true);
 	}
 
 	@Override
 	protected void retourner() {
-		// TODO Auto-generated method stub
-
+		this.setBorrowed(false);
 	}
 
 	@Override
-	protected void afficherDetails() {
+	protected String afficherDetails() {
+		return auteur;
 		// TODO Auto-generated method stub
 
 	}
