@@ -2,6 +2,9 @@ package utils;
 
 import java.util.Scanner;
 
+import dao.DaoLivreImpl;
+import data.Documents;
+
 public class Choices {
 
 	public void clear() {
@@ -18,7 +21,7 @@ public class Choices {
 
 	private Scanner sc = new Scanner(System.in);
 
-	public int home() {
+	public int homeUI() {
 		int input = 0;
 		boolean validInput = false;
 		while (!validInput) {
@@ -56,7 +59,7 @@ public class Choices {
 
 	}
 
-	public int document() {
+	public int documentUI() {
 		int input = 0;
 		boolean validInput = false;
 		while (!validInput) {
@@ -92,7 +95,8 @@ public class Choices {
 		case 0:
 			return 6;
 		case 1:
-
+			this.addLivreUI();
+			break;
 		case 3:
 			return 0;
 
@@ -101,4 +105,67 @@ public class Choices {
 
 	}
 
+	public int addLivreUI() {
+		System.out.println("=====================================");
+		System.out.println("");
+		System.out.println("            Ajouter un Livre");
+		System.out.println("");
+		System.out.println("=====================================");
+
+		// Consume the leftover newline after reading the choice
+		sc.nextLine();
+
+		String titre = "";
+		while (titre.isEmpty()) {
+			System.out.print("Titre: ");
+			titre = sc.nextLine();
+			if (titre.isEmpty()) {
+				System.out.println("Le titre ne peut pas être vide. Veuillez entrer un titre.");
+			}
+		}
+
+		String auteur = "";
+		while (auteur.isEmpty()) {
+			System.out.print("Auteur: ");
+			auteur = sc.nextLine();
+			if (auteur.isEmpty()) {
+				System.out.println("L'auteur ne peut pas être vide. Veuillez entrer un auteur.");
+			}
+		}
+
+		boolean validInput = false;
+		int nombreDePages = 0;
+		while (!validInput) {
+			System.out.print("Nombre de Pages: ");
+			if (sc.hasNextInt()) {
+				nombreDePages = sc.nextInt();
+				validInput = true;
+			} else {
+				System.out.println("Veuillez entrer un nombre valide pour le nombre de pages.");
+				sc.next(); // Consume the invalid input
+			}
+		}
+
+		sc.nextLine(); // Consume the leftover newline
+
+		String isbn = "";
+		while (isbn.isEmpty()) {
+			System.out.print("ISBN: ");
+			isbn = sc.nextLine();
+			if (isbn.isEmpty()) {
+				System.out.println("L'ISBN ne peut pas être vide. Veuillez entrer un ISBN.");
+			}
+		}
+
+		DaoLivreImpl daoLivre = new DaoLivreImpl();
+		daoLivre.addLivre(titre, auteur, nombreDePages, isbn);
+		System.out.println("Livre ajouté avec succès!");
+		System.out.println("Titre: " + titre);
+		return 0;
+	}
+
+	public int displayDocsUI() {
+		Documents.getAllDocs();
+		return 0;
+	}
 }
