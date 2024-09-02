@@ -4,24 +4,6 @@ public class Livre extends Document {
 
 	protected String isbn;
 
-	@Override
-	protected void emprunter() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void retourner() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void afficherDetails() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public String getIsbn() {
 		return isbn;
 	}
@@ -29,4 +11,21 @@ public class Livre extends Document {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
+
+	@Override
+	protected void emprunter() {
+		this.setBorrowed(true);
+	}
+
+	@Override
+	protected void retourner() {
+		this.setBorrowed(false);
+	}
+
+	@Override
+	public String afficherDetails() {
+		return "Titre: " + titre + "\n" + "Auteur: " + auteur + "\n" + "Nombre de Pages: " + nombreDePages + "\n"
+				+ "ISBN: " + isbn;
+	}
+
 }
