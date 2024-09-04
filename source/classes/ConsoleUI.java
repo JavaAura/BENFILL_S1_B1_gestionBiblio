@@ -12,11 +12,11 @@ public class ConsoleUI extends Choices {
 			switch (this.choice) {
 			case 0:
 				choice = this.homeUI();
-				clear();
+				this.clear();
 				break;
 			case 1:
 				choice = this.documentUI();
-				clear();
+				this.clear();
 				break;
 			case 2:
 				try {
@@ -25,7 +25,7 @@ public class ConsoleUI extends Choices {
 
 					e.printStackTrace();
 				}
-				clear();
+				this.clear();
 				break;
 			case 3:
 				try {
@@ -34,14 +34,14 @@ public class ConsoleUI extends Choices {
 
 					e.printStackTrace();
 				}
-				clear();
+				this.clear();
 				break;
 			case 4:
-				clear();
+				this.clear();
 				choice = this.displayDocsUI();
 				break;
 			case 5:
-				clear();
+				this.clear();
 				try {
 					choice = this.searchingUI();
 				} catch (InterruptedException e) {
@@ -49,21 +49,9 @@ public class ConsoleUI extends Choices {
 				}
 				break;
 			case 6:
-				clear();
+				this.clear();
 				return;
 			}
-		}
-	}
-
-	private void clear() {
-		try {
-			if (System.getProperty("os.name").contains("Windows")) {
-				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-			} else {
-				new ProcessBuilder("clear").inheritIO().start().waitFor();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }
