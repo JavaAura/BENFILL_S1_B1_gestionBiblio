@@ -1,13 +1,13 @@
 package classes;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 abstract class Document {
 
 	protected long id;
 	protected String titre;
 	protected String auteur;
-	protected LocalDateTime datePublication;
+	protected LocalDate datePublication;
 	protected int nombreDePages;
 	protected boolean borrowed = false;
 
@@ -49,11 +49,11 @@ abstract class Document {
 		this.borrowed = borrowed;
 	}
 
-	public LocalDateTime getDatePublication() {
+	public LocalDate getDatePublication() {
 		return datePublication;
 	}
 
-	public void setDatePublication(LocalDateTime datePublication) {
+	public void setDatePublication(LocalDate datePublication) {
 		this.datePublication = datePublication;
 	}
 
