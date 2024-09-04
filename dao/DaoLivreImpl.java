@@ -1,7 +1,7 @@
 package dao;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,9 +10,8 @@ import data.Documents;
 
 public class DaoLivreImpl implements DaoLivre {
 
-	public boolean addLivre(String titre, String auteur, int nombreDePages, String isbn) {
+	public boolean addLivre(String titre, String auteur, int nombreDePages, String isbn, LocalDate time) {
 		Livre livre = new Livre();
-		LocalDateTime time = LocalDateTime.now();
 		long id = Instant.now().getEpochSecond();
 
 		livre.setId(id);
@@ -25,10 +24,6 @@ public class DaoLivreImpl implements DaoLivre {
 		Documents.addLivre(id, livre);
 
 		return true;
-	}
-
-	public void getLivres() {
-
 	}
 
 	@Override

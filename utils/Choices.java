@@ -1,23 +1,16 @@
 package utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import dao.DaoLivreImpl;
+import dao.DaoMagazineImpl;
 import data.Documents;
 
 public class Choices {
-
-	public void clear() {
-		try {
-			if (System.getProperty("os.name").contains("Windows")) {
-				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-			} else {
-				new ProcessBuilder("clear").inheritIO().start().waitFor();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	private Scanner sc = new Scanner(System.in);
 
@@ -95,7 +88,11 @@ public class Choices {
 		case 0:
 			return 6;
 		case 1:
-			this.addLivreUI();
+			this.addDocumentUI(true);
+			break;
+
+		case 2:
+			this.addDocumentUI(false);
 			break;
 		case 3:
 			return 0;
@@ -105,15 +102,14 @@ public class Choices {
 
 	}
 
-	public int addLivreUI() {
+	public int addDocumentUI(boolean checker) {
 		System.out.println("=====================================");
 		System.out.println("");
-		System.out.println("            Ajouter un Livre");
+		System.out.println("            Ajouter un Document");
 		System.out.println("");
 		System.out.println("=====================================");
 
-		// Consume the leftover newline after reading the choice
-		sc.nextLine();
+		sc.nextLine(); // Clear the buffer before starting
 
 		String titre = "";
 		while (titre.isEmpty()) {
@@ -145,27 +141,123 @@ public class Choices {
 				sc.next(); // Consume the invalid input
 			}
 		}
+		sc.nextLine(); // Consume the newline after nextInt()
 
-		sc.nextLine(); // Consume the leftover newline
+		LocalDate date = null;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-		String isbn = "";
-		while (isbn.isEmpty()) {
-			System.out.print("ISBN: ");
-			isbn = sc.nextLine();
-			if (isbn.isEmpty()) {
-				System.out.println("L'ISBN ne peut pas être vide. Veuillez entrer un ISBN.");
+		while (date == null) {
+			System.out.print("Date de publication (format yyyy-MM-dd): ");
+			String input = sc.nextLine();
+
+			try {
+				date = LocalDate.parse(input, formatter);
+			} catch (DateTimeParseException e) {
+				System.out.println("La date ne peut pas être vide ou invalide. Veuillez entrer une date valide.");
 			}
 		}
 
-		DaoLivreImpl daoLivre = new DaoLivreImpl();
-		daoLivre.addLivre(titre, auteur, nombreDePages, isbn);
-		System.out.println("Livre ajouté avec succès!");
+		if (checker) {
+			String isbn = "";
+			while (isbn.isEmpty()) {
+				System.out.print("ISBN: ");
+				isbn = sc.nextLine();
+				if (isbn.isEmpty()) {
+					System.out.println("L'ISBN ne peut pas être vide. Veuillez entrer un ISBN.");
+				}
+			}
+			DaoLivreImpl daoLivre = new DaoLivreImpl();
+			daoLivre.addLivre(titre, auteur, nombreDePages, isbn, date);
+			System.out.println("Livre ajouté avec succès!");
+		} else {
+			int numero = 0;
+			validInput = false;
+			while (!validInput) {
+				System.out.print("Le numero du magazine: ");
+				if (sc.hasNextInt()) {
+					numero = sc.nextInt();
+					validInput = true;
+				} else {
+					System.out.println("Veuillez entrer un numero valide pour le numero du magazine.");
+					sc.next(); // Consume the invalid input
+				}
+			}
+			sc.nextLine(); // Consume the newline after nextInt()
+			DaoMagazineImpl daoMagazine = new DaoMagazineImpl();
+			daoMagazine.addMagazine(titre, auteur, nombreDePages, numero, date);
+			System.out.println("Magazine ajoutée avec succès!");
+		}
+
 		System.out.println("Titre: " + titre);
 		return 0;
 	}
 
 	public int displayDocsUI() {
 		Documents.getAllDocs();
+
+		boolean validInput = false;
+		int choice = 10;
+		while (!validInput) {
+			System.out.print("Entrez 0 pour retourner au menu principal: ");
+			if (sc.hasNextInt()) {
+				choice = sc.nextInt();
+				if (choice == 0)
+					validInput = true;
+			} else {
+				System.out.println("Veuillez entrer 0 pour retourner au menu principal");
+				sc.next();
+			}
+		}
+		return choice;
+	}
+
+	public int borrowingUI() throws InterruptedException {
+		if (!Documents.checkIfThereIsDocs()) {
+			System.out.println("il n'y a pas encore de documents");
+			TimeUnit.SECONDS.sleep(2);
+			return 0;
+		}
+		boolean validInput = false;
+		long id = 0;
+		while (!validInput) {
+			System.out.print("Id du Document: ");
+			if (sc.hasNextInt()) {
+				id = sc.nextInt();
+				validInput = Documents.emprunterDoc(id);
+				if (!validInput) {
+					System.out.println("Veuillez essayer une autre fois");
+					return 0;
+				}
+			} else {
+				System.out.println("Veuillez entrer un id valide.");
+				sc.next();
+			}
+		}
+		return 0;
+	}
+
+	public int returningUI() throws InterruptedException {
+		if (!Documents.checkIfThereIsDocs()) {
+			System.out.println("il n'y a pas encore de documents");
+			TimeUnit.SECONDS.sleep(2);
+			return 0;
+		}
+		boolean validInput = false;
+		long id = 0;
+		while (!validInput) {
+			System.out.print("Id du Document: ");
+			if (sc.hasNextInt()) {
+				id = sc.nextInt();
+				validInput = Documents.retournerDoc(id);
+				if (!validInput) {
+					System.out.println("Veuillez essayer une autre fois");
+					return 0;
+				}
+			} else {
+				System.out.println("Veuillez entrer un id valide.");
+				sc.next();
+			}
+		}
 		return 0;
 	}
 }

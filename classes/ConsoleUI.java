@@ -19,10 +19,21 @@ public class ConsoleUI extends Choices {
 				clear();
 				break;
 			case 2:
-				choice = this.borrowingUI();
+				try {
+					choice = this.borrowingUI();
+				} catch (InterruptedException e) {
+
+					e.printStackTrace();
+				}
 				clear();
 				break;
 			case 3:
+				try {
+					choice = this.returningUI();
+				} catch (InterruptedException e) {
+
+					e.printStackTrace();
+				}
 				clear();
 				break;
 			case 4:

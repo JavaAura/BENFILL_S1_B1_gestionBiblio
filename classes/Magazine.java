@@ -14,10 +14,9 @@ public class Magazine extends Document {
 		this.setBorrowed(false);
 	}
 
-	public String afficherDetails() {
-		return "Titre: " + titre + "\n" + "Auteur: " + auteur + "\n" + "Nombre de Pages: " + nombreDePages + "\n"
-				+ "Numero: " + numero + "\n" + "Est emprunté: " + (borrowed ? "Yes" : "No") + "\n"
-				+ "Type de Document: Magazine";
+	public void afficherDetails() {
+		System.out.printf("%-10s | %-15s | %-20s | %-20s | %-25s | %-15s | %-10s | Numero: %-15s%n", "Magazine ", id,
+				titre, auteur, DateUtils.toHumanDate(datePublication), nombreDePages, borrowed ? "OUI" : "NON", numero);
 	}
 
 	public int getNumero() {

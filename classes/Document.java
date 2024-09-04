@@ -11,11 +11,11 @@ abstract class Document {
 	protected int nombreDePages;
 	protected boolean borrowed = false;
 
-	protected abstract void emprunter();
+	public abstract void emprunter();
 
-	protected abstract void retourner();
+	public abstract void retourner();
 
-	protected abstract String afficherDetails();
+	public abstract void afficherDetails();
 
 	public long getId() {
 		return id;
