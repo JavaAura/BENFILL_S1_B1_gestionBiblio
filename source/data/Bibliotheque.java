@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -13,13 +14,16 @@ public class Bibliotheque {
 
 	public static HashMap<Long, Livre> livres = new HashMap<Long, Livre>();
 	public static HashMap<Long, Magazine> magazines = new HashMap<Long, Magazine>();
+	public static ArrayList<Object> documents = new ArrayList<Object>();
 
 	public static void addLivre(long id, Livre obj) {
 		livres.put(id, obj);
+		documents.add(obj);
 	}
 
 	public static void addMagazine(long id, Magazine obj) {
 		magazines.put(id, obj);
+		documents.add(obj);
 	}
 
 	public static boolean getDocById(long id) {
@@ -57,15 +61,11 @@ public class Bibliotheque {
 
 		tableStyleUp();
 
-		for (Map.Entry<Long, Livre> entry : livres.entrySet()) {
-			Livre livre = entry.getValue();
-			livre.afficherDetails();
-		}
-
-		for (Map.Entry<Long, Magazine> entry : magazines.entrySet()) {
-			Magazine magazine = entry.getValue();
-
-			magazine.afficherDetails();
+		for (Object obj : documents) {
+			if (obj instanceof Livre) // Assuming 'Livre' is one of the document types
+				((Livre) obj).afficherDetails(); // Cast the object to the correct type before calling the method
+			else
+				((Magazine) obj).afficherDetails();
 		}
 
 		tableStyleDown();
