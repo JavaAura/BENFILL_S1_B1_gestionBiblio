@@ -87,13 +87,6 @@ public class Bibliotheque {
 
 	}
 
-	public static boolean checkIfThereIsDocs() {
-		if (livres.isEmpty() && magazines.isEmpty()) {
-			return false;
-		}
-		return true;
-	}
-
 	public static boolean retournerDoc(long id) {
 
 		Livre livre = getLivre(id);
@@ -108,6 +101,13 @@ public class Bibliotheque {
 
 		return true;
 
+	}
+
+	public static boolean checkIfThereIsDocs() {
+		if (livres.isEmpty() && magazines.isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 
 	public static Livre getLivre(long id) {
