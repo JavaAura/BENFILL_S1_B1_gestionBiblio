@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import classes.Livre;
-import data.Documents;
+import data.Bibliotheque;
 
 public class DaoLivreImpl implements DaoLivre {
 
@@ -21,14 +21,14 @@ public class DaoLivreImpl implements DaoLivre {
 		livre.setNombreDePages(nombreDePages);
 		livre.setIsbn(isbn);
 
-		Documents.addLivre(id, livre);
+		Bibliotheque.addLivre(id, livre);
 
 		return true;
 	}
 
 	@Override
 	public Livre searchForDocs(long id) {
-		HashMap<Long, Livre> livres = Documents.livres;
+		HashMap<Long, Livre> livres = Bibliotheque.livres;
 
 		for (Map.Entry<Long, Livre> entry : livres.entrySet()) {
 			long key = entry.getKey();

@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import dao.DaoLivreImpl;
 import dao.DaoMagazineImpl;
-import data.Documents;
+import data.Bibliotheque;
 
 public class Choices {
 
@@ -18,22 +18,22 @@ public class Choices {
 		int input = 0;
 		boolean validInput = false;
 		while (!validInput) {
-			System.out.println("=====================================");
-			System.out.println("");
-			System.out.println(" Menu principale");
-			System.out.println("");
-			System.out.println("=====================================");
-			System.out.println("1. Ajouter un document");
-			System.out.println("2. Emprunter un document");
-			System.out.println("3. Retourner un document");
-			System.out.println("4. Afficher tous les documents");
-			System.out.println("5. Rechercher un document");
-			System.out.println("6. Quitter");
-			System.out.println("");
-			System.out.println("");
-			System.out.println("");
-			System.out.println("Veuillez entrer votre choix (0-6) :");
-			System.out.println("=====================================");
+			System.out.println("============================================");
+			System.out.println("|                                          |");
+			System.out.println("|            ✨ Menu Principale ✨         |");
+			System.out.println("|                                          |");
+			System.out.println("============================================");
+			System.out.println("|                                          |");
+			System.out.println("|  1. 📄 Ajouter un document               |");
+			System.out.println("|  2. 📖 Emprunter un document             |");
+			System.out.println("|  3. 🔄 Retourner un document             |");
+			System.out.println("|  4. 📑 Afficher tous les documents       |");
+			System.out.println("|  5. 🔎 Rechercher un document            |");
+			System.out.println("|  6. ❌ Quitter                           |");
+			System.out.println("|                                          |");
+			System.out.println("============================================");
+			System.out.println("Veuillez entrer votre choix (1-6) : ");
+			System.out.println("============================================");
 
 			if (sc.hasNextInt()) {
 				input = sc.nextInt();
@@ -56,20 +56,20 @@ public class Choices {
 		int input = 0;
 		boolean validInput = false;
 		while (!validInput) {
-			System.out.println("=====================================");
-			System.out.println("");
-			System.out.println("            Choix de document");
-			System.out.println("");
-			System.out.println("=====================================");
-			System.out.println("1. Ajouter un livre");
-			System.out.println("2. Ajouter une magazine");
-			System.out.println("3. Retourner");
-			System.out.println("0. Quitter");
-			System.out.println("");
-			System.out.println("");
-			System.out.println("");
-			System.out.println("Veuillez entrer votre choix (0-3) :");
-			System.out.println("=====================================");
+			System.out.println("============================================");
+			System.out.println("|                                          |");
+			System.out.println("|          📚 Choix de Document 📚          |");
+			System.out.println("|                                          |");
+			System.out.println("============================================");
+			System.out.println("|                                          |");
+			System.out.println("|  1. ➕ Ajouter un livre                   |");
+			System.out.println("|  2. ➕ Ajouter un magazine                |");
+			System.out.println("|  3. 🔙 Retourner                         |");
+			System.out.println("|  0. ❌ Quitter                           |");
+			System.out.println("|                                          |");
+			System.out.println("============================================");
+			System.out.println("Veuillez entrer votre choix (0-3) : ");
+			System.out.println("============================================");
 
 			if (sc.hasNextInt()) {
 				input = sc.nextInt();
@@ -193,7 +193,7 @@ public class Choices {
 	}
 
 	public int displayDocsUI() {
-		Documents.getAllDocs();
+		Bibliotheque.getAllDocs();
 
 		boolean validInput = false;
 		int choice = 10;
@@ -212,7 +212,7 @@ public class Choices {
 	}
 
 	public int borrowingUI() throws InterruptedException {
-		if (!Documents.checkIfThereIsDocs()) {
+		if (!Bibliotheque.checkIfThereIsDocs()) {
 			System.out.println("il n'y a pas encore de documents");
 			TimeUnit.SECONDS.sleep(2);
 			return 0;
@@ -223,7 +223,7 @@ public class Choices {
 			System.out.print("Id du Document: ");
 			if (sc.hasNextInt()) {
 				id = sc.nextInt();
-				validInput = Documents.emprunterDoc(id);
+				validInput = Bibliotheque.emprunterDoc(id);
 				if (!validInput) {
 					System.out.println("Veuillez essayer une autre fois");
 					return 0;
@@ -237,7 +237,7 @@ public class Choices {
 	}
 
 	public int returningUI() throws InterruptedException {
-		if (!Documents.checkIfThereIsDocs()) {
+		if (!Bibliotheque.checkIfThereIsDocs()) {
 			System.out.println("il n'y a pas encore de documents");
 			TimeUnit.SECONDS.sleep(2);
 			return 0;
@@ -248,7 +248,7 @@ public class Choices {
 			System.out.print("Id du Document: ");
 			if (sc.hasNextInt()) {
 				id = sc.nextInt();
-				validInput = Documents.retournerDoc(id);
+				validInput = Bibliotheque.retournerDoc(id);
 				if (!validInput) {
 					System.out.println("Veuillez essayer une autre fois");
 					return 0;
@@ -262,7 +262,7 @@ public class Choices {
 	}
 
 	public int searchingUI() throws InterruptedException {
-		if (!Documents.checkIfThereIsDocs()) {
+		if (!Bibliotheque.checkIfThereIsDocs()) {
 			System.out.println("il n'y a pas encore de documents");
 			TimeUnit.SECONDS.sleep(2);
 			return 0;
@@ -273,7 +273,7 @@ public class Choices {
 			System.out.print("Id du Document: ");
 			if (sc.hasNextInt()) {
 				id = sc.nextInt();
-				validInput = Documents.getDocById(id);
+				validInput = Bibliotheque.getDocById(id);
 				if (!validInput) {
 					System.out.println("Veuillez essayer une autre fois");
 					return 0;

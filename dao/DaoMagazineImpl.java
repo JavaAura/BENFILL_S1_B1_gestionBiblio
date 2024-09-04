@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import classes.Magazine;
-import data.Documents;
+import data.Bibliotheque;
 
 public class DaoMagazineImpl {
 
@@ -21,13 +21,13 @@ public class DaoMagazineImpl {
 		magazine.setNombreDePages(nombreDePages);
 		magazine.setNumero(numero);
 
-		Documents.addMagazine(id, magazine);
+		Bibliotheque.addMagazine(id, magazine);
 
 		return true;
 	}
 
 	public Magazine searchForDocs(long id) {
-		HashMap<Long, Magazine> magazines = Documents.magazines;
+		HashMap<Long, Magazine> magazines = Bibliotheque.magazines;
 
 		for (Map.Entry<Long, Magazine> entry : magazines.entrySet()) {
 			long key = entry.getKey();

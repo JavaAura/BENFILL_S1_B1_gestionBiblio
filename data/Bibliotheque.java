@@ -9,7 +9,7 @@ import classes.Magazine;
 import dao.DaoLivreImpl;
 import dao.DaoMagazineImpl;
 
-public class Documents {
+public class Bibliotheque {
 
 	public static HashMap<Long, Livre> livres = new HashMap<Long, Livre>();
 	public static HashMap<Long, Magazine> magazines = new HashMap<Long, Magazine>();
