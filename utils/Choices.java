@@ -260,4 +260,43 @@ public class Choices {
 		}
 		return 0;
 	}
+
+	public int searchingUI() throws InterruptedException {
+		if (!Documents.checkIfThereIsDocs()) {
+			System.out.println("il n'y a pas encore de documents");
+			TimeUnit.SECONDS.sleep(2);
+			return 0;
+		}
+		boolean validInput = false;
+		long id = 0;
+		while (!validInput) {
+			System.out.print("Id du Document: ");
+			if (sc.hasNextInt()) {
+				id = sc.nextInt();
+				validInput = Documents.getDocById(id);
+				if (!validInput) {
+					System.out.println("Veuillez essayer une autre fois");
+					return 0;
+				}
+			} else {
+				System.out.println("Veuillez entrer un id valide.");
+				sc.next();
+			}
+		}
+
+		validInput = false;
+		int choice = 10;
+		while (!validInput) {
+			System.out.print("Entrez 0 pour retourner au menu principal: ");
+			if (sc.hasNextInt()) {
+				choice = sc.nextInt();
+				if (choice == 0)
+					validInput = true;
+			} else {
+				System.out.println("Veuillez entrer 0 pour retourner au menu principal");
+				sc.next();
+			}
+		}
+		return choice;
+	}
 }

@@ -6,6 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 import classes.Livre;
 import classes.Magazine;
+import dao.DaoLivreImpl;
+import dao.DaoMagazineImpl;
 
 public class Documents {
 
@@ -18,6 +20,28 @@ public class Documents {
 
 	public static void addMagazine(long id, Magazine obj) {
 		magazines.put(id, obj);
+	}
+
+	public static boolean getDocById(long id) {
+		DaoLivreImpl livreObj = new DaoLivreImpl();
+		DaoMagazineImpl magazineObj = new DaoMagazineImpl();
+		Livre livre = livreObj.searchForDocs(id);
+		Magazine magazine = magazineObj.searchForDocs(id);
+
+		if (livre == null && magazine == null)
+			System.out.println("il n'y a pas de document avec cet id");
+		else {
+			tableStyleUp();
+			if (livre != null)
+				livre.afficherDetails();
+			else if (magazine != null)
+				magazine.afficherDetails();
+			tableStyleDown();
+			return true;
+		}
+
+		return false;
+
 	}
 
 	public static void getAllDocs() {

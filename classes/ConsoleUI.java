@@ -40,6 +40,14 @@ public class ConsoleUI extends Choices {
 				clear();
 				choice = this.displayDocsUI();
 				break;
+			case 5:
+				clear();
+				try {
+					choice = this.searchingUI();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				break;
 			case 6:
 				clear();
 				return;
