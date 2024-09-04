@@ -13,19 +13,20 @@ public class Livre extends Document {
 	}
 
 	@Override
-	protected void emprunter() {
+	public void emprunter() {
 		this.setBorrowed(true);
 	}
 
 	@Override
-	protected void retourner() {
+	public void retourner() {
 		this.setBorrowed(false);
 	}
 
 	@Override
 	public String afficherDetails() {
 		return "Titre: " + titre + "\n" + "Auteur: " + auteur + "\n" + "Nombre de Pages: " + nombreDePages + "\n"
-				+ "ISBN: " + isbn;
+				+ "ISBN: " + isbn + "\n" + "Est emprunté: " + (borrowed ? "Yes" : "No") + "\n"
+				+ "Type de Document: Livre";
 	}
 
 }

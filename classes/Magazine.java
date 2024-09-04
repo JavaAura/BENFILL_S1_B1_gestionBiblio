@@ -1,24 +1,23 @@
 package classes;
 
-class Magazine extends Document {
+public class Magazine extends Document {
 
 	protected int numero;
 
 	@Override
-	protected void emprunter() {
+	public void emprunter() {
 		this.setBorrowed(true);
 	}
 
 	@Override
-	protected void retourner() {
+	public void retourner() {
 		this.setBorrowed(false);
 	}
 
-	@Override
-	protected String afficherDetails() {
-		return auteur;
-		// TODO Auto-generated method stub
-
+	public String afficherDetails() {
+		return "Titre: " + titre + "\n" + "Auteur: " + auteur + "\n" + "Nombre de Pages: " + nombreDePages + "\n"
+				+ "Numero: " + numero + "\n" + "Est emprunté: " + (borrowed ? "Yes" : "No") + "\n"
+				+ "Type de Document: Magazine";
 	}
 
 	public int getNumero() {
