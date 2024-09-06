@@ -79,7 +79,4 @@ Please enter your choice (1-6):
 ## Bonus Features (Implemented)
 
 - **Optional**: Utilized for handling nullable values gracefully.
-- **Stream API**: Implemented for filtering and displaying documents, providing a more functional programming approach.
 - **Java Time API**: Enhanced for advanced date management scenarios.
-- **Advanced Exception Handling**: Included to manage edge cases and potential runtime errors more effectively.
-- **Data Persistence with MySQL and JDBC**: Integrated for storing data persistently across application runs.
